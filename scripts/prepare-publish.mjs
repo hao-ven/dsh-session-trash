@@ -44,6 +44,12 @@ rewrite('package.json', text => {
   return `${JSON.stringify(manifest, null, 2)}\n`
 })
 rewrite('cordis.patch.yml', text => text.replace(/name:\s*'[^']*'/u, `name: '${name}'`))
+// The browser bundle registers itself under an id the loader must match, so it
+// has to follow the package name too.
+rewrite('client.js', text => text.replace(
+  /(__ModuleLoader__\.load\(\{\s*id:\s*')[^']*(')/u,
+  `$1${name}$2`,
+))
 rewrite('market/index.json', text => {
   const index = JSON.parse(text)
   index.plugins[0].name = name

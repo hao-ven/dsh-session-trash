@@ -8,7 +8,7 @@
  * the Host emits, so no action reloads the page.
  */
 window.__ModuleLoader__.load({
-  id: '@local/dsh-session-trash',
+  id: '@h_kevin/dsh-session-trash',
   factory(require) {
     const React = require('react')
     const h = React.createElement
@@ -1370,31 +1370,15 @@ window.__ModuleLoader__.load({
     }
 
     return {
-      inject: ['slots', 'locale', 'contextMenus'],
+      inject: ['slots', 'locale'],
       apply(ctx) {
         pluginContext = ctx
         ctx.effect(() => ctx.locale.register(NS, { zh, en }), 'session-trash: dictionaries')
         const bound = ctx.locale.bind(NS)
         tr = (key, params) => (params === undefined ? bound(key) : bound(key, params))
-        ctx.slots.inject('contextMenu.icon', () => ctx.slots.register({
-          name: 'contextMenu.icon',
-          key: 'session-trash.trash',
-        }, TrashIcon))
-        // The structured menu contribution, not the legacy slot: legacy entries
-        // always render above Archive, and this action belongs below it.
-        ctx.effect(() => ctx.contextMenus.register({
-          id: 'session-trash.trash',
-          target: 'session',
-          order: 700,
-          resolve: ({ sessionId, displayTitle }) => [{
-            id: 'trash',
-            label: tr('menu.delete'),
-            icon: { key: 'session-trash.trash' },
-            danger: true,
-            separatorBefore: true,
-            run: () => { void trashWithFlow(sessionId, displayTitle ?? String(sessionId)) },
-          }],
-        }), 'session-trash: session menu action')
+
+        // Surface registrations first: if the optional menu contribution below
+        // fails in a given composition, the panel must still appear.
         ctx.slots.inject('sidebar.panellist', () => ctx.slots.register({
           name: 'sidebar.panellist',
           id: PANEL_ID,
@@ -1417,6 +1401,36 @@ window.__ModuleLoader__.load({
           id: 'session-trash.toast',
           locale: NS,
         }, guarded(ToastSurface)))
+
+        // The structured menu contribution, not the legacy slot: legacy entries
+        // always render above Archive, and this action belongs below it. Menu
+        // support is optional, so its absence must not keep the plugin pending.
+        const menus = typeof ctx.get === 'function' ? ctx.get('contextMenus') : undefined
+        if (menus === undefined) {
+          console.warn('[session-trash] contextMenus is unavailable; the row menu entry is skipped')
+          return
+        }
+        try {
+          ctx.slots.inject('contextMenu.icon', () => ctx.slots.register({
+            name: 'contextMenu.icon',
+            key: 'session-trash.trash',
+          }, TrashIcon))
+          ctx.effect(() => menus.register({
+            id: 'session-trash.trash',
+            target: 'session',
+            order: 700,
+            resolve: ({ sessionId, displayTitle }) => [{
+              id: 'trash',
+              label: tr('menu.delete'),
+              icon: { key: 'session-trash.trash' },
+              danger: true,
+              separatorBefore: true,
+              run: () => { void trashWithFlow(sessionId, displayTitle ?? String(sessionId)) },
+            }],
+          }), 'session-trash: session menu action')
+        } catch (error) {
+          console.warn('[session-trash] session menu contribution failed:', error)
+        }
       },
     }
   },

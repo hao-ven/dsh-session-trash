@@ -1,6 +1,6 @@
 {
   "name": "@h_kevin/dsh-session-trash",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
   "description": "Reversible Session deletion for DeepSeek Harness: move a Session into a local recycle bin, restore it, or purge it for good.",
   "keywords": [
