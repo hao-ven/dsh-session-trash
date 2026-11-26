@@ -1,0 +1,60 @@
+{
+  "format": 1,
+  "title": {
+    "en": "dsh-session-trash",
+    "zh": "会话回收站"
+  },
+  "description": {
+    "en": "Reversible Session deletion for DeepSeek Harness.",
+    "zh": "DeepSeek Harness 的可恢复会话删除。"
+  },
+  "metadata": {
+    "categories": {},
+    "labels": {},
+    "sortKeys": {}
+  },
+  "plugins": [
+    {
+      "name": "@h_kevin/dsh-session-trash",
+      "title": {
+        "en": "Session trash",
+        "zh": "会话回收站"
+      },
+      "description": {
+        "en": "Delete a Session into a local recycle bin, restore it, or purge it for good — with an archive segment, multi-select and a live-Agent release that leaves no ghost rows.",
+        "zh": "把会话删进本地回收站，可恢复、可彻底删除；带归档段、多选，并会释放内存里的 Agent，不留鬼影行。"
+      },
+      "icon": "./icon.svg",
+      "author": "h_kevin",
+      "homepage": "https://github.com/hao-ven/dsh-session-trash",
+      "repository": {
+        "url": "https://github.com/hao-ven/dsh-session-trash"
+      },
+      "metadata": {
+        "keywords": [
+          "dsh",
+          "dsh-plugin",
+          "deepseek-harness",
+          "session",
+          "trash",
+          "recycle-bin",
+          "delete"
+        ],
+        "labels": [],
+        "sortKeys": {}
+      },
+      "versions": [
+        {
+          "version": "0.2.0",
+          "publishTimestamp": 1795683600,
+          "source": {
+            "type": "npm"
+          },
+          "engines": {
+            "dsh": ">=0.2.0 <0.3.0-0"
+          }
+        }
+      ]
+    }
+  ]
+}

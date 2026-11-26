@@ -1,0 +1,55 @@
+{
+  "name": "@h_kevin/dsh-session-trash",
+  "version": "0.2.0",
+  "type": "module",
+  "description": "Reversible Session deletion for DeepSeek Harness: move a Session into a local recycle bin, restore it, or purge it for good.",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "session",
+    "trash",
+    "recycle-bin",
+    "delete"
+  ],
+  "license": "MIT",
+  "author": "h_kevin",
+  "homepage": "https://github.com/hao-ven/dsh-session-trash",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hao-ven/dsh-session-trash.git"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "docs",
+    "icon.svg",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "dsh": ">=0.2.0 <0.3.0-0",
+    "node": ">=24"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-workspace"
+      ]
+    }
+  }
+}

@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+lib/
+
+# Logs and editor noise
+*.log
+.DS_Store
+Thumbs.db
+
+# Local scratch
+*.tgz
+_temp/

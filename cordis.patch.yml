@@ -1,0 +1,3 @@
+- insert:
+    - id: session-trash
+      name: '@h_kevin/dsh-session-trash'

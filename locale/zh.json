@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "会话回收站",
+    "description": "可恢复的会话删除：会话行菜单「删除会话（移入回收站）」，日志与账本一起搬进本地回收站并释放内存里的 Agent；提供 trash_session / restore_session / purge_session / list_session_trash 工具。",
+    "detail": "docs/DETAIL.md"
+  }
+}

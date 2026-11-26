@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Session trash",
+    "description": "Reversible Session deletion: a \"delete (move to recycle bin)\" entry in the Session row menu moves the log and its Workspace accounting into a local bin and releases the live Agent; tools trash_session, restore_session, purge_session and list_session_trash cover the rest.",
+    "detail": "docs/DETAIL.md"
+  }
+}
